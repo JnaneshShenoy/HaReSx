@@ -10,7 +10,7 @@
 
   .hero {
     max-width: 200px;
-    aspect-ratio: 1 / 1; 
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
@@ -54,6 +54,7 @@
   }
 
   button:hover {
+    background-color: #3367d6;
     transform: scale(1.05);
   }
 

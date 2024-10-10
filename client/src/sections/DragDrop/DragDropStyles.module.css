@@ -1,11 +1,10 @@
-/* Container Styling */
 .container {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2vh;
+  gap: 3vh;
   text-align: center;
   width: 100%;
   height: 100vh;
@@ -13,7 +12,23 @@
   box-sizing: border-box;
 }
 
-/* Dialog Overlay for error */
+/* Drag and Drop Container Styling */
+.dragDropContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4vh 2vw;
+  border: 2px dashed #ccc;
+  border-radius: 1em;
+  cursor: pointer;
+  max-width: 650px;
+}
+
+.dragActive {
+  border-color: #4282fe;
+  background-color: #f4fbff;
+}
+
 .dialogOverlay {
   position: fixed;
   top: 0;
@@ -27,7 +42,7 @@
   z-index: 1000;
 }
 
-h2{
+h2 {
   color: var(--text-color);
 }
 
@@ -40,7 +55,9 @@ h2{
   text-align: center;
   max-width: 300px;
   width: 80%; /* Make it responsive */
-  color: var(--text-color); /* Consistent with the rest of the site's text color */
+  color: var(
+    --text-color
+  ); /* Consistent with the rest of the site's text color */
   font-size: 1.4vh;
 }
 
@@ -64,34 +81,18 @@ h2{
   color: #fff;
 }
 
-/* Drag and Drop Container Styling */
-.dragDropContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5vh 2vw;
-  border: 2px dashed #ccc;
-  border-radius: 1em;
-  cursor: pointer;
-  width: 60%;
-}
-
-.dragActive {
-  border-color: #4282fe;
-  background-color: #f4fbff;
-}
-
 /* Upload Info Styling */
 .uploadInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1vh;
+  gap: 0.8vh;
 }
 
 .uploadInfo p {
   margin: 0;
-  font-size: 1.6vh;
+  font-size: 2.4vh;
+  font-weight: 400;
 }
 
 /* Browse File Container Styling */
@@ -117,7 +118,7 @@ h2{
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .browseBtn:hover {
@@ -183,42 +184,45 @@ h2{
 }
 
 /* Gender Selection Container */
-.genderContainer {
+
+.genderSelection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2vw;
+  margin-top: 2vh;
+}
+
+.genderBox {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 1em;
+  padding: 4vh 2vw;
   border: 2px dashed #ccc;
   border-radius: 1em;
-  margin-bottom: 1.5em;
-  /* width: 60%; */
-  background-color: var(--text-color); /* Light background for contrast */
-}
-
-/* Gender Heading */
-.genderTitle {
-  margin-bottom: 1em;
-  font-weight: bold;
-  color: var(--text-color); /* Dark text color for visibility */
-}
-
-/* Gender Radio Button Group */
-.genderOptions {
-  gap: 2em;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Individual Radio Button Label */
-.genderOptions label {
-  color: var(--text-color);
   cursor: pointer;
+  max-width: 650px;
+  margin-top: 30px;
 }
 
-/* Radio Button Styling */
-.genderOptions input[type="radio"] {
-  margin-right: 0.5em;
+.genderBox p {
+  margin: 0;
+  font-size: 2.4vh;
+  font-weight: 400;
+}
+
+.genderSelection label {
+  font-size: 2vh;
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.genderSelection input[type="radio"] {
+  width: 1.5em;
+  height: 1.5em;
+  cursor: pointer;
 }
 
 /* Submit Button Styling */
@@ -233,7 +237,7 @@ h2{
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .submitButton:hover {
