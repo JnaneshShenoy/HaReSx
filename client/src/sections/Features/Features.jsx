@@ -25,14 +25,14 @@ function Features() {
         <ProjectCard
           src={InMaS}
           link="https://github.com/JnaneshShenoy/ReMaS"
-          h3="Facial hair"
-          p="Beard style recommender"
+          h3="Hairstyle Transfer"
+          p="Hairstyle GAN"
         />
         <ProjectCard
           src={TaMar}
           link="https://github.com/JnaneshShenoy/Task-Manager"
-          h3="Frame Recommender"
-          p="Frames shape recommender"
+          h3="Frame Style"
+          p="Frame recommender"
         />
       </div>
     </section>

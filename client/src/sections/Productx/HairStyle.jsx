@@ -11,7 +11,7 @@ function HairStyle() {
   return (
     <section id="Hairx">
       <div className={styles.container}>
-        <h1>Try out different Hairstyles</h1>
+        <h1>AI - Hairstyler</h1>
         <p className={styles.paragraph}>
           Ever wonder what you would look like with a different hairstyle?
           <br />

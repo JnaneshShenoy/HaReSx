@@ -38,12 +38,13 @@ function Hero() {
         <h1>HaReS</h1>
         <h2>
           Hairstyle <br />
-          Recommender
+          Recommendation <br/>
+          System
         </h2>
         <p className={styles.description}>
           Find the perfect Hairstyle that suits your face shape.
           <br />
-          Powered by AI
+          {/* Powered by AI */}
         </p>
 
         <button className="hover" onClick={handleClick}>

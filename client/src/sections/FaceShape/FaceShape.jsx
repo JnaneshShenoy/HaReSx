@@ -1,24 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import styles from "./DragDropStyles.module.css";
+import styles from "./FaceShape.module.css";
 
-function DragDrop() {
+function FaceShape() {
   const [files, setFiles] = useState([]);
-  const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
-  const [gender, setGender] = useState("");
-
-  // Handle drag and drop state
-  const handleDrag = (isActive) => setDragActive(isActive);
 
   // Handle file drop
-  const handleDrop = (event) => {
-    event.preventDefault();
-    handleFiles(event.dataTransfer.files);
-    handleDrag(false);
-  };
-
   const handleFileChange = (event) => handleFiles(event.target.files);
 
   // Handle file validation
@@ -52,17 +41,12 @@ function DragDrop() {
     reader.readAsDataURL(file);
   };
 
-  // Send image and gender data to server
+  // Send image to server for face shape detection
   const sendToServer = (base64Image) => {
-    if (!gender) {
-      setError("Please select a gender.");
-      return;
-    }
-
     axios
-      .post("http://localhost:5000/recommend", { image: base64Image, gender })
+      .post("http://localhost:5000/face-shape", { image: base64Image })
       .then((response) => setResult(response.data))
-      .catch(() => setError("Failed to get recommendation"));
+      .catch(() => setError("Failed to detect face shape"));
   };
 
   // Handle file removal
@@ -74,33 +58,21 @@ function DragDrop() {
   // Close error message
   const handleCloseError = () => setError("");
 
-  // Handle gender selection
-  const handleGenderChange = (event) => setGender(event.target.value);
-
   return (
-    <section id="drag-drop" className={styles.container}>
-      <div
-        className={`${styles.dragDropContainer} ${
-          dragActive ? styles.dragActive : ""
-        }`}
-        onDragEnter={() => handleDrag(true)}
-        onDragLeave={() => handleDrag(false)}
-        onDrop={handleDrop}
-        onDragOver={(event) => event.preventDefault()}
-      >
-        <div className={styles.uploadInfo}>
-          <p>Upload your image here</p>
-          <p>Supported files: .PNG, .JPEG, .JPG </p>
-          <p>(Max size: 5MB)</p>
-        </div>
-
+    <section id="face-shape" className={styles.container}>
+      <div className={styles.uploadContainer}>
         <div className={styles.browseFileContainer}>
+          <div className={styles.uploadInfo}>
+            <p>Upload your image here</p>
+            <p>Supported files: .PNG, .JPEG, .JPG</p>
+            <p>(Max size: 5MB)</p>
+          </div>
+          <br/>
           <input
             type="file"
             id="browse"
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png"
-            multiple
           />
           <label htmlFor="browse" className={styles.browseBtn}>
             Browse file
@@ -118,29 +90,6 @@ function DragDrop() {
           </div>
         </div>
       )}
-      <div className={styles.genderBox}>
-        <p>Please select your gender</p>
-        <div className={styles.genderSelection}>
-          <label>
-            <input
-              type="radio"
-              value="male"
-              checked={gender === "male"}
-              onChange={handleGenderChange}
-            />
-            Male
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="female"
-              checked={gender === "female"}
-              onChange={handleGenderChange}
-            />
-            Female
-          </label>
-        </div>
-      </div>
 
       {files.length > 0 && (
         <div className={styles.fileList}>
@@ -156,7 +105,7 @@ function DragDrop() {
               </div>
               <div className={styles.fileActions}>
                 <button onClick={() => handleRemoveFile()}>Remove</button>
-                <button onClick={() => processFile(file)}>Submit</button>{" "}
+                <button onClick={() => processFile(file)}>Submit</button>
               </div>
             </div>
           ))}
@@ -165,16 +114,12 @@ function DragDrop() {
 
       {result && (
         <div className={styles.resultContainer}>
-          <h2>Hairstyle Recommendations</h2>
-          <ul>
-            {result.hairstyles.map((style, index) => (
-              <li key={index}>{style}</li>
-            ))}
-          </ul>
+          <h2>Your face shape:</h2>
+          <div className={styles.faceShapeBox}>{result.faceShape}</div>
         </div>
       )}
     </section>
   );
 }
 
-export default DragDrop;
+export default FaceShape;
