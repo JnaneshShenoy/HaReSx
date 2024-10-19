@@ -7,7 +7,6 @@ function Hairstyler() {
   const [generatedResult, setGeneratedResult] = useState(null);
   const [error, setError] = useState(""); // Error message state
 
-  // Handle file changes for both user and reference images
   const handleFileChange = (event, type) => {
     const file = event.target.files[0];
     if (file) {
@@ -23,39 +22,54 @@ function Hairstyler() {
         return;
       }
 
-      // Set file to respective state
-      if (type === "user") {
-        setUserImage(file);
-      } else if (type === "reference") {
-        setReferenceImage(file);
-      }
+      if (type === "user") setUserImage(file);
+      else if (type === "reference") setReferenceImage(file);
+
       setError("");
     }
   };
 
-  // Remove file handlers
   const handleRemoveFile = (type) => {
     if (type === "user") setUserImage(null);
     else if (type === "reference") setReferenceImage(null);
   };
 
-  // Simulate result generation
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!userImage || !referenceImage) {
       setError("Please upload both images before submitting.");
       return;
     }
     setError("");
-    // Simulating generated result with user's image (placeholder logic)
-    setGeneratedResult(userImage); // In real scenario, replace this with result from server
+
+    const formData = new FormData();
+    formData.append("userImage", userImage);
+    formData.append("referenceImage", referenceImage);
+
+    try {
+      const response = await fetch("http://localhost:5000/hair-transfer", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.error);
+        return;
+      }
+
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      setGeneratedResult(imageUrl);
+    } catch (err) {
+      setError("Error while generating hairstyle. Please try again.");
+    }
   };
 
   return (
     <section id="hairstyler" className={styles.container}>
-      <h2>Hairstyle Try-On</h2>
+      <h2 className={styles.title}>Hairstyle Try-On</h2>
 
       <div className={styles.uploadSection}>
-        {/* User Image Upload */}
         <div className={styles.uploadContainer}>
           <p>Upload your image</p>
           <label className={styles.uploadLabel}>
@@ -79,7 +93,6 @@ function Hairstyler() {
           )}
         </div>
 
-        {/* Reference Image Upload */}
         <div className={styles.uploadContainer}>
           <p>Upload reference image</p>
           <label className={styles.uploadLabel}>
@@ -106,7 +119,6 @@ function Hairstyler() {
         </div>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className={styles.errorMessage}>
           <p>{error}</p>
@@ -114,7 +126,6 @@ function Hairstyler() {
         </div>
       )}
 
-      {/* Submit Button */}
       <div className={styles.submitContainer}>
         <button onClick={handleSubmit} className={styles.submitBtn}>
           Submit
@@ -125,7 +136,7 @@ function Hairstyler() {
         <div className={styles.resultSection}>
           <h3>Your New Look</h3>
           <img
-            src={URL.createObjectURL(generatedResult)}
+            src={generatedResult}
             alt="Generated Result"
             className={styles.resultImage}
           />

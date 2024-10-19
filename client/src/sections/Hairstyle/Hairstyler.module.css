@@ -19,6 +19,10 @@ h2 {
   text-align: center;
 }
 
+.title{
+  color: #222;
+}
+
 /* Upload section */
 .uploadLabel {
   display: inline-block;

@@ -1,9 +1,10 @@
 :root {
   --background-color: #fff;
   --btn-color: #0987f2;
-  --remove-btn-color : #E74C3C;
+  --remove-btn-color : #D32F2F;
   --btn-text-color: #fff;
   --remove-btn-text-color : #fff;
+  --remove-btn-hover-color: #B71C1C;
   --project-card-bg: #ffffff00;
   --text-color: #222;
   --form-text-color: #555;
@@ -14,7 +15,8 @@
 [data-theme="dark"] {
   --background-color: #222;
   --btn-color: #fff;
-  --remove-btn-color : #FF9900;
+  --remove-btn-color : #F4511E;
+  --remove-btn-hover-color: #FF7043;
   --btn-text-color: #222;
   --remove-btn-text-color : #fff;
   --project-card-bg: #fff;
@@ -57,6 +59,7 @@ p {
 h2,
 h3,
 a,
+li,
 label,
 p {
   font-family: "Roboto Mono", monospace;

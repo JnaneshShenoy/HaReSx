@@ -1,14 +1,14 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-import styles from "./DragDropStyles.module.css";
+import styles from "./FrameStyle.module.css";
 import ImageLoader from "../ImageLoader/ImageLoader";
 
-function DragDrop() {
+function FrameStyle() {
   const [files, setFiles] = useState([]);
   const [dragActive, setDragActive] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
-  const [gender, setGender] = useState("");
+  const [gender, setGender] = useState(""); // Gender selection state
 
   const fileInputRef = useRef(null); // Ref to reset input field
 
@@ -58,18 +58,18 @@ function DragDrop() {
     }
 
     axios
-      .post("http://localhost:5000/recommend", { image: base64Image, gender })
+      .post("http://localhost:5000/frame-recommend", { image: base64Image, gender })
       .then((response) => {
         setResult(response.data);
-        resetFileInput(); // Reset input field after upload
+        resetFileInput(); // Reset input after processing
       })
       .catch(() => setError("Failed to get recommendation"));
   };
 
   const resetFileInput = () => {
-    setFiles([]); // Clear files state
+    setFiles([]);
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // Reset input value
+      fileInputRef.current.value = ""; // Clear input value
     }
   };
 
@@ -96,7 +96,7 @@ function DragDrop() {
       >
         <div className={styles.uploadInfo}>
           <p>Upload your image here</p>
-          <p>Supported files: .PNG, .JPEG, .JPG </p>
+          <p>Supported files: .PNG, .JPEG, .JPG</p>
           <p>(Max size: 5MB)</p>
         </div>
 
@@ -106,8 +106,7 @@ function DragDrop() {
             id="browse"
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png"
-            multiple
-            ref={fileInputRef} // Attach ref for resetting input
+            ref={fileInputRef}
           />
           <label htmlFor="browse" className={styles.browseBtn}>
             Browse file
@@ -166,7 +165,7 @@ function DragDrop() {
                 />
               </div>
               <div className={styles.fileActions}>
-                <button onClick={() => handleRemoveFile()}>Remove</button>
+                <button onClick={handleRemoveFile}>Remove</button>
                 <button onClick={() => processFile(file)}>Submit</button>
               </div>
             </div>
@@ -177,9 +176,9 @@ function DragDrop() {
       {/* Results Section */}
       {result && (
         <div className={styles.resultContainer}>
-          <h2>Hairstyle Recommendations</h2>
+          <h2>Frame Recommendations</h2>
           <div className={styles.imageGrid}>
-            {result.hairstyles.map((style, index) => (
+            {result.frames.map((style, index) => (
               <ImageLoader key={index} name={style} />
             ))}
           </div>
@@ -189,4 +188,4 @@ function DragDrop() {
   );
 }
 
-export default DragDrop;
+export default FrameStyle;
