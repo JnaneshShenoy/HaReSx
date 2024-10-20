@@ -9,6 +9,7 @@
   font-family: "Arial", sans-serif;
   width: 90%;
   box-sizing: border-box;
+  align-items: center;
 }
 
 h2 {
@@ -120,8 +121,9 @@ button:hover {
   transition: box-shadow 200ms ease-in-out, transform 200ms ease-in-out;
 }
 
+
 /* Error Message */
-.errorMessage {
+/* .errorMessage {
   background-color: #ffdddd;
   color: #d8000c;
   padding: 10px;
@@ -129,15 +131,38 @@ button:hover {
   border-radius: 6px;
   font-size: 0.9rem;
   text-align: center;
+} */
+
+.errorMessage {
+  background-color: red;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  align-items: center;
+  max-width: 300px;
+  width: 80%;
+  color: var(--text-color);
+  font-size: 1.4vh;
 }
 
 .errorMessage button {
-  background-color: transparent;
-  color: #d8000c;
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: var(--btn-color);
+  color: var(--btn-text-color);
   border: none;
-  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
   font-weight: bold;
-  margin-left: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.errorMessage button:hover {
+  background-color: #3367d6;
+  color: #fff;
 }
 
 /* Submit button styling */

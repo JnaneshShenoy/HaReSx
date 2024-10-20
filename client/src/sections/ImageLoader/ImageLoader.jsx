@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'; // Import PropTypes
 import styles from './ImageLoader.module.css'; // Import CSS module for styling
 
 // Component for dynamically loading images based on given name and folder path
-const ImageLoader = ({ name, folder = 'src/Hairstyles' }) => {
+const ImageLoader = ({ name, folder = 'src/Imagex' }) => {
   const formattedName = name
     .toLowerCase()
     .replace(/\s+/g, '-') // Replace spaces with dashes

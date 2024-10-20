@@ -14,16 +14,16 @@ from gradio_client import Client, file
 MODEL_PATH = os.path.join('models', 'rgb_oct.h5')
 FACE_SHAPES = ['Heart', 'Oblong', 'Oval', 'Round', 'Square']
 HAIR_TRANSFER_CLIENT = Client("AIRI-Institute/HairFastGAN")
+TEMP_DIR = "./temp"
 
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app)
 
-# Ensure the temp directory exists
-TEMP_DIR = "./temp"
+# Ensure temp directory exists
 os.makedirs(TEMP_DIR, exist_ok=True) 
 
-# Load the pre-trained model
+# Load the model
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # === HELPER FUNCTIONS === #
@@ -87,37 +87,36 @@ hairstyle_recommendations = {
     },
     'Square': {
         'male': ['Short Crew Cut', 'Caesar Cut', 'Textured Quiff', 'Top Knot', 'Side Part'],
-        'female': ['Soft Layered Waves', 'Side Part', 'Textured Lob', 'Loose Curls with Highlights', 'Feather Cut']
+        'female': ['Soft Layered Waves', 'Side Parts', 'Textured Lob', 'Loose Curls with Highlights', 'Feather Cut']
     }
 }
 
 # Full Frame Style Recommendations
 frame_recommendations = {
     'Heart': {
-        'male': ['Aviator', 'Round', 'Browline', 'Oval'],
-        'female': ['Cat-Eye', 'Round', 'Oval', 'Soft Curves']
+        'male': ['Aviator', 'Hexagonal', 'Browline', 'Round'],
+        'female': ['Cat-Eye', 'Soft Curves', 'Hexagonal', 'Oversized']
     },
     'Oblong': {
-        'male': ['Square', 'Rectangular', 'Wide', 'Angular'],
-        'female': ['Oversized', 'Rectangular', 'Square', 'Wide']
+        'male': ['Rectangular', 'Aviator', 'Octagonal', 'Square'],
+        'female': ['Oversized', 'Rectangular', 'Octagonal']
     },
     'Oval': {
-        'male': ['Square', 'Aviator', 'Round', 'Balanced'],
-        'female': ['Oversized', 'Round', 'Oval', 'Balanced']
+        'male': ['Aviator', 'Hexagonal', 'Round', 'Square'],
+        'female': ['Soft Curves', 'Oversized', 'Round', 'Browline']
     },
     'Round': {
-        'male': ['Square', 'Rectangular', 'Angular', 'Geometric'],
-        'female': ['Cat-Eye', 'Rectangular', 'Square', 'Geometric']
+        'male': ['Square', 'Rectangular', 'Hexagonal', 'Browline'],
+        'female': ['Cat-Eye', 'Rectangular', 'Square']
     },
     'Square': {
-        'male': ['Round', 'Oval', 'Aviator', 'Curved'],
-        'female': ['Round', 'Oval', 'Oversized', 'Curved']
+        'male': ['Aviator', 'Octagonal', 'Round'],
+        'female': ['Oversized', 'Round', 'Hexagonal']
     }
 }
 
 
 # === ROUTES === #
-
 
 @app.route('/hair-transfer', methods=['POST'])
 def hair_transfer():

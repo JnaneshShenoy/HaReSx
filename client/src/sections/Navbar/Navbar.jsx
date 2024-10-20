@@ -9,7 +9,7 @@ function Navbar() {
       </div>
       <ul className={styles.navLinks}>
         <li>
-          <a href="#Hairx">Hairx</a>
+          <a href="#Hairx">Hairstyler</a>
         </li>
         <li>
           <a href="#Features">Features</a>

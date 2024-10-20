@@ -31,7 +31,7 @@ function Features() {
 
         <div className={styles.projectCard} onClick={goToHairstyleTransfer}>
           <img src={InMaS} alt="Hairstyle Transfer" />
-          <h3>Hairstyle Transfer</h3>
+          <h3>Hair Transfer</h3>
           <p>Hairstyle GAN</p>
         </div>
 
