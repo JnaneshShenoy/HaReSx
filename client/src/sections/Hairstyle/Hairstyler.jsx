@@ -88,7 +88,7 @@ function Hairstyler() {
                 alt="User"
                 className={styles.previewImage}
               />
-              <button onClick={() => handleRemoveFile("user")}>Remove</button>
+              <button className={styles.rmvBtn} onClick={() => handleRemoveFile("user")}>Remove</button>
             </div>
           )}
         </div>
@@ -111,7 +111,7 @@ function Hairstyler() {
                 alt="Reference"
                 className={styles.previewImage}
               />
-              <button onClick={() => handleRemoveFile("reference")}>
+              <button className={styles.rmvBtn} onClick={() => handleRemoveFile("reference")}>
                 Remove
               </button>
             </div>

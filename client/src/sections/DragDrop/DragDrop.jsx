@@ -166,8 +166,8 @@ function DragDrop() {
                 />
               </div>
               <div className={styles.fileActions}>
-                <button onClick={() => handleRemoveFile()}>Remove</button>
-                <button onClick={() => processFile(file)}>Submit</button>
+                <button className={styles.rmvBtn} onClick={() => handleRemoveFile()}>Remove</button>
+                <button className={styles.smtBtn} onClick={() => processFile(file)}>Submit</button>
               </div>
             </div>
           ))}

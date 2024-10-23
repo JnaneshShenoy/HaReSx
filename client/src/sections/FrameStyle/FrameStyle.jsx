@@ -58,7 +58,10 @@ function FrameStyle() {
     }
 
     axios
-      .post("http://localhost:5000/frame-recommend", { image: base64Image, gender })
+      .post("http://localhost:5000/frame-recommend", {
+        image: base64Image,
+        gender,
+      })
       .then((response) => {
         setResult(response.data);
         resetFileInput(); // Reset input after processing
@@ -165,8 +168,15 @@ function FrameStyle() {
                 />
               </div>
               <div className={styles.fileActions}>
-                <button onClick={handleRemoveFile}>Remove</button>
-                <button onClick={() => processFile(file)}>Submit</button>
+                <button className={styles.rmvBtn} onClick={handleRemoveFile}>
+                  Remove
+                </button>
+                <button
+                  className={styles.smtBtn}
+                  onClick={() => processFile(file)}
+                >
+                  Submit
+                </button>
               </div>
             </div>
           ))}

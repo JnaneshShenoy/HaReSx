@@ -184,7 +184,10 @@ button:hover {
 
 .submitBtn:hover {
   background-color: #45a049;
+  transform: scale(1.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
 
 /* Result section */
 .resultSection {
@@ -238,4 +241,23 @@ button:hover {
   .resultImage {
     max-height: 250px;
   }
+}
+
+.rmvBtn {
+  background-color: var(--remove-btn-color);
+  color: var(--remove-btn-text-color);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rmvBtn:hover {
+  cursor: pointer;
+  background-color: var(--remove-btn-hover-color);
+  color: #fff;
+  transform: scale(1.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }

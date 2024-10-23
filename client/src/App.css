@@ -1,10 +1,10 @@
 :root {
   --background-color: #fff;
   --btn-color: #0987f2;
-  --remove-btn-color : #D32F2F;
+  --remove-btn-color: #d32f2f;
+  --remove-btn-hover-color: #b71c1c;
   --btn-text-color: #fff;
-  --remove-btn-text-color : #fff;
-  --remove-btn-hover-color: #B71C1C;
+  --remove-btn-text-color: #fff;
   --project-card-bg: #ffffff00;
   --text-color: #222;
   --form-text-color: #555;
@@ -15,10 +15,10 @@
 [data-theme="dark"] {
   --background-color: #222;
   --btn-color: #fff;
-  --remove-btn-color : #F4511E;
-  --remove-btn-hover-color: #FF7043;
+  --remove-btn-color: #f4511e;
+  --remove-btn-hover-color: #ff7043;
   --btn-text-color: #222;
-  --remove-btn-text-color : #fff;
+  --remove-btn-text-color: #fff;
   --project-card-bg: #fff;
   --text-color: #fff;
   --form-text-color: #fff;
@@ -40,17 +40,22 @@ body {
 }
 
 h1 {
+  font-family: "Rubik", sans-serif;
+  font-size: 32px;
   color: var(--h1-text-color);
 }
 
-html {
-  scroll-behavior: smooth;
+h2,
+h3 {
+  font-size: 20px;
+  text-transform: uppercase;
+  color: var(--text-color);
 }
 
-h2,
-h3,
-a,
 p {
+  font-family: "Roboto Mono", monospace;
+  font-size: 16px;
+  font-weight: 300;
   color: var(--text-color);
   margin: 0;
   padding: 0;
@@ -60,29 +65,8 @@ h2,
 h3,
 a,
 li,
-label,
-p {
+label {
   font-family: "Roboto Mono", monospace;
-}
-
-h1,
-h2 {
-  text-transform: uppercase;
-}
-
-h2,
-h3 {
-  font-size: 20px;
-}
-
-h1 {
-  font-family: "Rubik", sans-serif;
-  font-size: 32px;
-}
-
-p {
-  font-size: 16px;
-  font-weight: 300;
 }
 
 .sectionTitle {
@@ -93,17 +77,24 @@ p {
   cursor: pointer;
 }
 
-@media (width >= 800px) {
+html {
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 800px) {
   #root {
     gap: 100px;
   }
+
   h1 {
     font-size: 40px;
   }
+
   h2,
   h3 {
     font-size: 24px;
   }
+
   p {
     font-size: 20px;
   }
@@ -111,17 +102,18 @@ p {
   .sectionTitle {
     margin-bottom: 60px;
   }
+}
 
-  @media (width >= 1400px) {
-    #root {
-      gap: 200px;
-    }
-    h1 {
-      font-size: 48px;
-    }
+@media (min-width: 1400px) {
+  #root {
+    gap: 200px;
+  }
 
-    .sectionTitle {
-      margin-bottom: 75px;
-    }
+  h1 {
+    font-size: 48px;
+  }
+
+  .sectionTitle {
+    margin-bottom: 75px;
   }
 }
