@@ -11,6 +11,7 @@ from typing import Dict, List, Union
 from gradio_client import Client, file 
 
 # === CONFIGURATION === #
+FACE_CASCADE=cv2.CascadeClassifier(os.path.join('models',"haarcascade_frontalface_default.xml"))
 MODEL_PATH = os.path.join('models', 'rgb_oct.h5')
 FACE_SHAPES = ['Heart', 'Oblong', 'Oval', 'Round', 'Square']
 HAIR_TRANSFER_CLIENT = Client("AIRI-Institute/HairFastGAN")
@@ -27,6 +28,12 @@ os.makedirs(TEMP_DIR, exist_ok=True)
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # === HELPER FUNCTIONS === #
+def no_of_faces(image_data):
+    img = Image.open(BytesIO(base64.b64decode(image_data)))
+    gray = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2GRAY)
+    faces = FACE_CASCADE.detectMultiScale(gray,1.1,4)
+    print(len(faces))
+
 def preprocess_image(image_data: str) -> np.ndarray:
     """Decode, preprocess, and prepare the image for model input."""
     try:
@@ -194,6 +201,7 @@ def detect_face_shape():
     try:
         img_bytes = image_file.read()
         img_data = base64.b64encode(img_bytes).decode('utf-8')
+        no_of_faces(img_data)
         predicted_shape = predict_face_shape(img_data)
 
         return jsonify({"face_shape": predicted_shape})
