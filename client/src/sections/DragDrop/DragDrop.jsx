@@ -107,7 +107,7 @@ function DragDrop() {
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png"
             multiple
-            ref={fileInputRef} // Attach ref for resetting input
+            ref={fileInputRef}
           />
           <label htmlFor="browse" className={styles.browseBtn}>
             Browse file

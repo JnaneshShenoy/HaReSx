@@ -106,14 +106,16 @@ function Hairstyler() {
           {referenceImage && (
             <div className={styles.previewContainer}>
               <p>{referenceImage.name}</p>
-              <img
-                src={URL.createObjectURL(referenceImage)}
-                alt="Reference"
-                className={styles.previewImage}
-              />
-              <button className={styles.rmvBtn} onClick={() => handleRemoveFile("reference")}>
-                Remove
-              </button>
+              <div className={styles.imageWrapper}>
+                <img
+                  src={URL.createObjectURL(referenceImage)}
+                  alt="Reference"
+                  className={styles.previewImage}
+                />
+                <button className={styles.rmvBtn} onClick={() => handleRemoveFile("reference")}>
+                  Remove
+                </button>
+              </div>
             </div>
           )}
         </div>
