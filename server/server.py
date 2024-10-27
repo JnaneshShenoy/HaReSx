@@ -140,7 +140,7 @@ def hair_transfer():
         result = HAIR_TRANSFER_CLIENT.predict(
             face=file(user_path),
             shape=file(ref_path),
-            color=None,  # Optional: Add color images if needed
+            color=file(user_path),  # Optional: Add color images if needed | use color = None !!!
             blending="Article",
             poisson_iters=0,
             poisson_erosion=15,
@@ -165,7 +165,6 @@ def hair_transfer():
         for path in [user_path, ref_path]:
             if os.path.exists(path):
                 os.remove(path)
-
             
 @app.route('/frame-recommend', methods=['POST'])
 def recommend_frame():

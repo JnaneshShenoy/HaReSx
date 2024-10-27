@@ -84,7 +84,6 @@ function DragDrop() {
 
   return (
     <section id="drag-drop" className={styles.container}>
-      {/* Drag and Drop Container */}
       <div
         className={`${styles.dragDropContainer} ${
           dragActive ? styles.dragActive : ""
