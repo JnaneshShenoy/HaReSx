@@ -54,7 +54,7 @@ def predict_face_shape(image_data: str) -> str:
     predictions = model.predict(preprocessed_image)
     return FACE_SHAPES[np.argmax(predictions)]
 
-def save_and_resize_image(file, filename: str) -> str:
+def save_image(file, filename: str) -> str:
     """Save and resize the uploaded image to 1024x1024 and return its path."""
     try:
         # Define the path inside the temp/ directory
@@ -63,15 +63,16 @@ def save_and_resize_image(file, filename: str) -> str:
         # Save the original file temporarily
         file.save(filepath)
 
+        # Not required
         # Open and resize the image to 1024x1024
-        with Image.open(filepath) as img:
-            resized_img = img.resize((1024, 1024))
-            resized_img.save(filepath)  # Overwrite with the resized version
+        # with Image.open(filepath) as img:
+        #     resized_img = img.resize((1024, 1024))
+        #     resized_img.save(filepath)  # Overwrite with the resized version
 
         return filepath
 
     except Exception as e:
-        raise ValueError(f"Failed to save and resize {filename}: {str(e)}")
+        raise ValueError(f"Failed to save {filename}: {str(e)}")
 
 
 # Define hairstyle recommendations based on face shape and gender
@@ -132,19 +133,31 @@ def hair_transfer():
         return jsonify({"error": "Both userImage and referenceImage are required."}), 400
 
     try:
-        # Save and resize the uploaded images to temp directory
-        user_path = save_and_resize_image(request.files['userImage'], "user.png")
-        ref_path = save_and_resize_image(request.files['referenceImage'], "reference.png")
+        # Save the uploaded images to temp directory
+        user_path = save_image(request.files['userImage'], "user.png")
+        ref_path = save_image(request.files['referenceImage'], "reference.png")
+
+        user_path_new = HAIR_TRANSFER_CLIENT.predict(
+            img = file(user_path),
+            align = ['Face', 'Shape', 'Color'],
+		    api_name = "/resize_inner"
+        )
+
+        ref_path_new = HAIR_TRANSFER_CLIENT.predict(
+            img = file(ref_path),
+		    align = ['Face', 'Shape', 'Color'],
+		    api_name = "/resize_inner_1"
+        )
 
         # Make the API call to HairFastGAN with the saved images
         result = HAIR_TRANSFER_CLIENT.predict(
-            face=file(user_path),
-            shape=file(ref_path),
-            color=None,  # Optional: Add color images if needed
-            blending="Article",
-            poisson_iters=0,
-            poisson_erosion=15,
-            api_name="/swap_hair"
+            face = file(user_path_new),
+            shape = file(ref_path_new),
+            color = None,  # Optional: Add color images if needed
+            blending = "Article",
+            poisson_iters = 0,
+            poisson_erosion = 15,
+            api_name = "/swap_hair"
         )
 
         # Check if the response contains the generated image path
