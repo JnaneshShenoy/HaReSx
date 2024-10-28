@@ -197,7 +197,9 @@ h2 {
 
 /* Submit button styling */
 .submitContainer {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 20px;
 }
 
@@ -222,8 +224,14 @@ h2 {
 /* Result section */
 .resultSection {
   margin-top: 40px;
-  text-align: center;
+  display: flex;            /* Use flexbox */
+  flex-direction: column;   /* Stack elements vertically */
+  align-items: center;      /* Center elements horizontally */
+  justify-content: center;  /* Center elements vertically */
+  text-align: center;       /* Center-align text */
+  gap: 20px;                /* Add space between elements */
 }
+
 
 .resultSection h3 {
   font-size: 1.5rem;
@@ -271,4 +279,45 @@ h2 {
   .resultImage {
     max-height: 250px;
   }
+}
+
+.downloadBtn {
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.downloadBtn:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Style the checkbox label and align it horizontally with the text */
+.checkboxLabel {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #444;
+  user-select: none;
+}
+
+/* Style the checkbox itself */
+.checkboxLabel input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: #4caf50; /* Optional: Change color to green */
+  cursor: pointer;
 }

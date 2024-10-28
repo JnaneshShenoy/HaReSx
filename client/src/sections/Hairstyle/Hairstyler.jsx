@@ -5,6 +5,7 @@ function Hairstyler() {
   const [userImage, setUserImage] = useState(null);
   const [referenceImage, setReferenceImage] = useState(null);
   const [generatedResult, setGeneratedResult] = useState(null);
+  const [retainHairColor, setRetainHairColor] = useState(false); // Checkbox state
   const [error, setError] = useState(""); // Error message state
 
   const handleFileChange = (event, type) => {
@@ -44,6 +45,7 @@ function Hairstyler() {
     const formData = new FormData();
     formData.append("userImage", userImage);
     formData.append("referenceImage", referenceImage);
+    formData.append("retainHairColor", retainHairColor); // Send checkbox state
 
     try {
       const response = await fetch("http://localhost:5000/hair-transfer", {
@@ -88,7 +90,12 @@ function Hairstyler() {
                 alt="User"
                 className={styles.previewImage}
               />
-              <button className={styles.rmvBtn} onClick={() => handleRemoveFile("user")}>Remove</button>
+              <button
+                className={styles.rmvBtn}
+                onClick={() => handleRemoveFile("user")}
+              >
+                Remove
+              </button>
             </div>
           )}
         </div>
@@ -112,7 +119,10 @@ function Hairstyler() {
                   alt="Reference"
                   className={styles.previewImage}
                 />
-                <button className={styles.rmvBtn} onClick={() => handleRemoveFile("reference")}>
+                <button
+                  className={styles.rmvBtn}
+                  onClick={() => handleRemoveFile("reference")}
+                >
                   Remove
                 </button>
               </div>
@@ -129,6 +139,15 @@ function Hairstyler() {
       )}
 
       <div className={styles.submitContainer}>
+        {/* Checkbox for retaining hair color */}
+        <label className={styles.checkboxLabel}>
+          <input
+            type="checkbox"
+            checked={retainHairColor}
+            onChange={(e) => setRetainHairColor(e.target.checked)}
+          />
+          Retain my hair color
+        </label>
         <button onClick={handleSubmit} className={styles.submitBtn}>
           Submit
         </button>
@@ -142,6 +161,13 @@ function Hairstyler() {
             alt="Generated Result"
             className={styles.resultImage}
           />
+          <a
+            href={generatedResult}
+            download="new-look.png"
+            className={styles.downloadBtn}
+          >
+            Download
+          </a>
         </div>
       )}
     </section>

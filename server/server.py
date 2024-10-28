@@ -132,6 +132,9 @@ def hair_transfer():
     if 'userImage' not in request.files or 'referenceImage' not in request.files:
         return jsonify({"error": "Both userImage and referenceImage are required."}), 400
 
+    # Check if 'retainHairColor' is included in the form data
+    retain_hair_color = request.form.get('retainHairColor', 'false').lower() == 'true'
+    
     try:
         # Save the uploaded images to temp directory
         user_path = save_image(request.files['userImage'], "user.png")
