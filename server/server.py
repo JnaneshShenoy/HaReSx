@@ -134,6 +134,7 @@ def hair_transfer():
 
     # Check if 'retainHairColor' is included in the form data
     retain_hair_color = request.form.get('retainHairColor', 'false').lower() == 'true'
+    print(retain_hair_color)
     
     try:
         # Save the uploaded images to temp directory
@@ -152,11 +153,16 @@ def hair_transfer():
 		    api_name = "/resize_inner_1"
         )
 
+        if(retain_hair_color):
+            color_value=file(user_path_new)
+        else:
+            color_value=None
+
         # Make the API call to HairFastGAN with the saved images
         result = HAIR_TRANSFER_CLIENT.predict(
             face = file(user_path_new),
             shape = file(ref_path_new),
-            color = None,  # Optional: Add color images if needed
+            color = color_value,
             blending = "Article",
             poisson_iters = 0,
             poisson_erosion = 15,
