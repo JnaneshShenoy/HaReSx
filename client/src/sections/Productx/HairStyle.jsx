@@ -27,14 +27,14 @@ function HairStyle() {
           helps computers analyze images and recognize patterns—like the shape
           of your face and the way your hair flows. Its super easy to use! Just
           upload a picture of yourself and a reference image with the hairstyle
-          you want to try. In seconds, our system will show you how you wouldd
-          look with your chosen style.
+          you want to try. In seconds, our system will show you how you would
+          look with your chosen hairstyle.
         </p>
 
         <p className={styles.paragraph}>
-          Right now, our system works best with mens hairstyles, but dont worry,
-          ladies—we are actively working to support more styles for you soon!
-          Stay tuned for exciting new features and updates.
+          Please upload a high-quality image with proper framing, lighting, and
+          a clean background for the best results. Processing may take some
+          time. Thank you for your patience❤️
         </p>
 
         <button className={styles.button} onClick={handleClick}>
