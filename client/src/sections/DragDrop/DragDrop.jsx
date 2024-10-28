@@ -56,15 +56,22 @@ function DragDrop() {
       setError("Please select a gender.");
       return;
     }
-
+  
     axios
       .post("http://localhost:5000/recommend", { image: base64Image, gender })
       .then((response) => {
         setResult(response.data);
         resetFileInput(); // Reset input field after upload
       })
-      .catch(() => setError("Failed to get recommendation"));
-  };
+      .catch((error) => {
+        // Handle server errors and display detailed messages
+        if (error.response && error.response.data && error.response.data.error) {
+          setError(error.response.data.error); // Display the exact error from the backend
+        } else {
+          setError("Failed to get recommendation"); // Fallback for unexpected errors
+        }
+      });
+  };  
 
   const resetFileInput = () => {
     setFiles([]); // Clear files state

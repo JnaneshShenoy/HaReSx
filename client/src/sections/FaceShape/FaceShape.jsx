@@ -3,9 +3,9 @@ import axios from "axios";
 import styles from "./FaceShape.module.css";
 
 function FaceShape() {
-  const [file, setFile] = useState(null);  // Holds the uploaded file
-  const [error, setError] = useState("");  // Holds error messages
-  const [faceShape, setFaceShape] = useState("");  // Holds the detected face shape
+  const [file, setFile] = useState(null); // Holds the uploaded file
+  const [error, setError] = useState(""); // Holds error messages
+  const [faceShape, setFaceShape] = useState(""); // Holds the detected face shape
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -39,14 +39,23 @@ function FaceShape() {
         setFaceShape(response.data.face_shape);
         setError("");
       })
-      .catch(() => {
-        setError("Failed to detect face shape. Please try again.");
+      .catch((error) => {
+        // Handle backend-specific error messages
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          setError(error.response.data.error); // Display exact backend error
+        } else {
+          setError("Failed to detect face shape. Please try again.");
+        }
       });
   };
 
   const handleRemoveFile = () => {
     setFile(null);
-    setFaceShape("");  // Clear previous result
+    setFaceShape(""); // Clear previous result
   };
 
   return (
@@ -63,7 +72,7 @@ function FaceShape() {
             id="browse"
             onChange={handleFileChange}
             accept=".jpg,.jpeg,.png"
-            style={{ display: 'none' }}  // Hide the default file input
+            style={{ display: "none" }} // Hide the default file input
           />
           <label htmlFor="browse" className={styles.browseBtn}>
             Browse file
@@ -85,15 +94,19 @@ function FaceShape() {
       {file && (
         <div className={styles.fileItem}>
           <div className={styles.fileInfo}>
-                <p>{file.name}</p>
-                <img
-                  src={URL.createObjectURL(file)}
-                  alt={file.name}
-                  className={styles.previewImage}
-                />
-              </div>
-          <button className={styles.rmvBtn} onClick={handleRemoveFile}>Remove</button>
-          <button className={styles.smtBtn} onClick={handleSubmit}>Submit</button>
+            <p>{file.name}</p>
+            <img
+              src={URL.createObjectURL(file)}
+              alt={file.name}
+              className={styles.previewImage}
+            />
+          </div>
+          <button className={styles.rmvBtn} onClick={handleRemoveFile}>
+            Remove
+          </button>
+          <button className={styles.smtBtn} onClick={handleSubmit}>
+            Submit
+          </button>
         </div>
       )}
 

@@ -66,7 +66,18 @@ function FrameStyle() {
         setResult(response.data);
         resetFileInput(); // Reset input after processing
       })
-      .catch(() => setError("Failed to get recommendation"));
+      .catch((error) => {
+        // Handle backend-specific error messages
+        if (
+          error.response &&
+          error.response.data &&
+          error.response.data.error
+        ) {
+          setError(error.response.data.error); // Display exact backend error
+        } else {
+          setError("Failed to get recommendation. Please try again.");
+        }
+      });
   };
 
   const resetFileInput = () => {

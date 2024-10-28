@@ -29,16 +29,10 @@ model = tf.keras.models.load_model(MODEL_PATH)
 
 # === HELPER FUNCTIONS === #
 def no_of_faces(image_data):
-    """Detect the number of faces and raise errors to halt execution if invalid."""
     img = Image.open(BytesIO(base64.b64decode(image_data)))
     gray = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2GRAY)
-    faces = FACE_CASCADE.detectMultiScale(gray, 1.1, 4)
-
-    if len(faces) == 0:
-        raise ValueError("No face detected in the image. Please upload a clear photo.")
-    # elif len(faces) > 1:
-    #     raise ValueError("Multiple faces detected. Please upload an image with only one face.")
-
+    faces = FACE_CASCADE.detectMultiScale(gray,1.1,4)
+    print(len(faces))
 
 def preprocess_image(image_data: str) -> np.ndarray:
     """Decode, preprocess, and prepare the image for model input."""
@@ -205,9 +199,6 @@ def recommend_frame():
         if not image_data or not gender:
             return jsonify({"error": "Image or gender data missing"}), 400
 
-        # Ensure exactly one face is present (halts if not)
-        no_of_faces(image_data)
-
         predicted_shape = predict_face_shape(image_data)
         frames = get_recommendations(frame_recommendations, predicted_shape, gender)
 
@@ -231,11 +222,9 @@ def detect_face_shape():
     try:
         img_bytes = image_file.read()
         img_data = base64.b64encode(img_bytes).decode('utf-8')
-
-        # Ensure exactly one face is present (halts if not)
         no_of_faces(img_data)
-
         predicted_shape = predict_face_shape(img_data)
+
         return jsonify({"face_shape": predicted_shape})
 
     except ValueError as e:
@@ -254,9 +243,6 @@ def recommend():
         return jsonify({"error": "Image or gender data missing"}), 400
 
     try:
-        # Ensure exactly one face is present (halts if not)
-        no_of_faces(image_data)
-
         predicted_shape = predict_face_shape(image_data)
         hairstyles = get_recommendations(hairstyle_recommendations, predicted_shape, gender)
 
@@ -266,7 +252,6 @@ def recommend():
         return jsonify({"error": str(e)}), 400
     except Exception as e:
         return jsonify({"error": f"Internal server error: {str(e)}"}), 500
-
 
 # === MAIN ENTRY POINT === #
 if __name__ == '__main__':
