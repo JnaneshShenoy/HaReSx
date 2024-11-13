@@ -97,7 +97,7 @@ hairstyle_recommendations = {
     },
     'Round': {
         'male': ['High Fade with Pompadour', 'Fringe', 'Spiky Hair', 'Short Spikes', 'Classic Undercut'],
-        'female': ['Asymmetrical Bob', 'Layered Shag', 'Side Swept Bangs', 'Layered Cut with Curls', 'Braided Bun (Judha)']
+        'female': ['Asymmetrical Bob', 'Layered Shag', 'Side Swept Bangs', 'Layered Cut with Curls', 'Braided Bun']
     },
     'Square': {
         'male': ['Short Crew Cut', 'Caesar Cut', 'Textured Quiff', 'Top Knot', 'Side Part'],
